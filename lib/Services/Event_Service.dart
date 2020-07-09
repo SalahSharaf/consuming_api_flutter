@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:consumingapi/Models/ApiResponce.dart';
 import 'package:consumingapi/Models/Event.dart';
 import 'package:http/http.dart' as http;
@@ -27,6 +26,6 @@ class Events_Service {
       } else {
         return ApiResponse<List<Event>>(null, true, "error occured");
       }
-    }).catchError((onError)=> ApiResponse<List<Event>>(null, true, "error occured"););
+    }).catchError((onError)=> ApiResponse<List<Event>>(null, true, "error occured"));
   }
 }
