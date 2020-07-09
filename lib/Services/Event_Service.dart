@@ -18,14 +18,19 @@ class Events_Service {
           final event = Event(
               item['noteID'],
               item['noteTitle'],
-              DateTime.parse(item['createDateTime']),
-              DateTime.parse(item['latestEditDateTime']));
+              item['createDateTime'] != null
+                  ? DateTime.parse(item['createDateTime'])
+                  : null,
+              item['latestEditDateTime'] != null
+                  ? DateTime.parse(item['latestEditDateTime'])
+                  : null);
           events.add(event);
         }
-        return ApiResponse<List<Event>>(events, false,"");
+        return ApiResponse<List<Event>>(events, false, "");
       } else {
         return ApiResponse<List<Event>>(null, true, "error occured");
       }
-    }).catchError((onError)=> ApiResponse<List<Event>>(null, true, "error occured"));
+    }).catchError(
+        (onError) => ApiResponse<List<Event>>(null, true, onError.toString()));
   }
 }
