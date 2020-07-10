@@ -1,5 +1,6 @@
 import 'package:consumingapi/Models/ApiResponce.dart';
 import 'package:consumingapi/Models/Event.dart';
+import 'package:consumingapi/Models/EventMonupolation.dart';
 import 'package:consumingapi/Models/EventPost.dart';
 import 'package:consumingapi/Services/Event_Service.dart';
 import 'package:flutter/material.dart';
@@ -121,7 +122,35 @@ class _CreateEditEventState extends State<CreateEditEvent> {
                                 Navigator.of(context).pop();
                               }
                         });
-                      } else {}
+                      } else if(nameOFPage=="Edit Event") {
+                        final event = new EventMonupolation(
+                            eventTitle: textTitleController.text,
+                            eventContent: textDetailsController.text);
+                        final result = await eventService.updateEvent(event,widget.eventID);
+                        final title = "done";
+                        final text = result.error
+                            ? result.errorMessage
+                            : "item was Updated successfully";
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                content: new Text(text),
+                                actions: <Widget>[
+                                  FlatButton(
+                                    child: new Text("ok"),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  )
+                                ],
+                              );
+                            }).then((value){
+                          if(result.data) {
+                            Navigator.of(context).pop();
+                          }
+                        });
+                      }
                     },
                   ),
                 ),

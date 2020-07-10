@@ -25,7 +25,7 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  void fetchNotesList() async {
+  Future fetchNotesList() async {
     setState(() {
       isLoading = true;
     });
@@ -70,6 +70,17 @@ class _HomePageState extends State<HomePage> {
                       final result = await showDialog(
                           context: this.context,
                           builder: (context) => EventDelete());
+                      if(result){
+                        final deleteResult=await eventService.deleteEvent(apiResponse.data[index].noteId);
+                        String message;
+                        if(deleteResult!=null&&deleteResult.data==true){
+                          message="the note was deleted successfully";
+                        }else{
+                            message=deleteResult.errorMessage;
+                        }
+                        Scaffold.of(context).showSnackBar(SnackBar(content: Text(message),duration: new Duration(milliseconds: 3000 ,)));
+                        return deleteResult.data;
+                      }
                       return result;
                     },
                     background: new Container(
@@ -89,7 +100,7 @@ class _HomePageState extends State<HomePage> {
                         onTap: () {
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => CreateEditEvent(
-                                  apiResponse.data[index].noteId)));
+                                  apiResponse.data[index].noteId))).then((value) {fetchNotesList();});
                         },
                       ),
                     ),

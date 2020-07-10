@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 
-class EventPost{
+class EventMonupolation{
 
   String eventTitle;
   String eventContent;
-  EventPost({@required this.eventTitle,@required this.eventContent});
+  EventMonupolation({@required this.eventTitle,@required this.eventContent});
+
   Map<String,dynamic> toJson(){
     return
       {
