@@ -1,10 +1,10 @@
-import 'package:consumingapi/Services/Event_Service.dart';
+import 'package:consumingapi/Services/EventService.dart';
 import 'package:consumingapi/pages/HomePage.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
 void setupLocator(){
-    GetIt.instance.registerLazySingleton(() => Events_Service());
+    GetIt.instance.registerLazySingleton(() => EventService());
 }
 void main() {
   setupLocator();

@@ -1,7 +1,7 @@
 import 'package:consumingapi/Components/EventDelete.dart';
 import 'package:consumingapi/Models/ApiResponce.dart';
 import 'package:consumingapi/Models/Event.dart';
-import 'package:consumingapi/Services/Event_Service.dart';
+import 'package:consumingapi/Services/EventService.dart';
 import 'package:consumingapi/pages/CreateEditEvent.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -12,7 +12,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  Events_Service get eventService => GetIt.I<Events_Service>();
+  EventService get eventService => GetIt.I<EventService>();
   ApiResponse<List<Event>> apiResponse;
   bool isLoading = false;
 
@@ -66,6 +66,7 @@ class _HomePageState extends State<HomePage> {
                     key: ValueKey(apiResponse.data[index].noteId),
                     direction: DismissDirection.startToEnd,
                     onDismissed: (direction) {},
+                    /////////////////////////////////////////////////////the error is here
                     confirmDismiss: (direction) async {
                       final result = await showDialog(
                           context: this.context,
@@ -81,6 +82,7 @@ class _HomePageState extends State<HomePage> {
                         Scaffold.of(context).showSnackBar(SnackBar(content: Text(message),duration: new Duration(milliseconds: 3000 ,)));
                         return deleteResult.data;
                       }
+                      ///////////////////////////////////////////////////////////////////////////end of Error
                       return result;
                     },
                     background: new Container(

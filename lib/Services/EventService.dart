@@ -5,7 +5,7 @@ import 'package:consumingapi/Models/EventMonupolation.dart';
 import 'package:consumingapi/Models/EventPost.dart';
 import 'package:http/http.dart' as http;
 
-class Events_Service {
+class EventService {
   static const API = "http://api.notes.programmingaddict.com";
   static const APIKEYHeaders = {
     "apiKey": "b694296a-3377-4b91-b709-96d1785a616e",
@@ -72,6 +72,7 @@ class Events_Service {
             (onError) => ApiResponse<bool>(null, true, onError.toString()));
   }
 
+  //////////////////////////////the error is here
   Future<ApiResponse<bool>> updateEvent(EventMonupolation item, String eventID) {
     return http
         .put(API + "/notes/" + eventID,

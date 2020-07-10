@@ -2,7 +2,7 @@ import 'package:consumingapi/Models/ApiResponce.dart';
 import 'package:consumingapi/Models/Event.dart';
 import 'package:consumingapi/Models/EventMonupolation.dart';
 import 'package:consumingapi/Models/EventPost.dart';
-import 'package:consumingapi/Services/Event_Service.dart';
+import 'package:consumingapi/Services/EventService.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
@@ -18,7 +18,7 @@ class CreateEditEvent extends StatefulWidget {
 class _CreateEditEventState extends State<CreateEditEvent> {
   String nameOFPage;
 
-  Events_Service get eventService => GetIt.I<Events_Service>();
+  EventService get eventService => GetIt.I<EventService>();
   ApiResponse<Event> apiResponse;
   Event event;
   TextEditingController textTitleController = new TextEditingController();
