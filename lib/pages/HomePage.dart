@@ -20,14 +20,15 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    fetchNotesList();
+    setState(() {
+      fetchNotesList();
+    });
   }
 
   void fetchNotesList() async {
     setState(() {
       isLoading = true;
     });
-
     apiResponse = await eventService.getEventsList();
     setState(() {
       isLoading = false;
@@ -42,14 +43,18 @@ class _HomePageState extends State<HomePage> {
         ),
         floatingActionButton: new FloatingActionButton(
           onPressed: () {
-            Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => CreateEditEvent(1)));
+            Navigator.of(context)
+                .push(MaterialPageRoute(
+                    builder: (context) => CreateEditEvent("")))
+                .then((value) {
+              fetchNotesList();
+            });
           },
           child: Icon(Icons.add),
         ),
         body: Builder(builder: (context) {
           if (isLoading) {
-            return CircularProgressIndicator();
+            return Center(child: CircularProgressIndicator());
           } else if (apiResponse.error) {
             return Text(apiResponse.errorMessage);
           }
@@ -83,7 +88,8 @@ class _HomePageState extends State<HomePage> {
                             apiResponse.data[index].createDateTime.toString()),
                         onTap: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => CreateEditEvent(0)));
+                              builder: (context) => CreateEditEvent(
+                                  apiResponse.data[index].noteId)));
                         },
                       ),
                     ),

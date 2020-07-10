@@ -1,7 +1,7 @@
 class Event {
   String noteId, noteTitle;
-  DateTime createDateTime, lastEdititedDateTime;
+  DateTime createDateTime, lastEditedDateTime;
 
   Event(this.noteId, this.noteTitle, this.createDateTime,
-      this.lastEdititedDateTime);
+      this.lastEditedDateTime);
 }
